@@ -95,10 +95,28 @@ public void LoginSenhaIncorreta() {
     WebElement mensagem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("flash")));
     String mensagemRetorno = mensagem.getText().trim();
     Assertions.assertTrue(mensagemRetorno.contains(mensagemEsperada));
+}
+
+@Test
+public void LoginUsuarioESenhaIncorretos() {
+
+    String mensagemEsperada = "Your username is invalid!";
+
+    driver.get("https://the-internet.herokuapp.com/login");
+    driver.manage().window().setSize(new Dimension(1520, 840));
+    driver.findElement(By.id("username")).click();
+    driver.findElement(By.id("username")).sendKeys("tom");
+    driver.findElement(By.id("password")).click();
+    driver.findElement(By.id("password")).sendKeys("secretpassword");
+    driver.findElement(By.cssSelector("i.fa.fa-2x.fa-sign-in")).click();
+
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    WebElement mensagem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("flash")));
+    String mensagemRetorno = mensagem.getText().trim();
+    Assertions.assertTrue(mensagemRetorno.contains(mensagemEsperada));
 
 
 }
-//LoginSenhaIncorreta
 //LoginUsuarioESenhaIncorretos
 //LoginUsuarioEmBranco
 //LoginSenhaEmBranco
