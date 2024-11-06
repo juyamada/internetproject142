@@ -187,10 +187,22 @@ public void LoginEspacoEmBrancoUsuario() {
     String mensagemRetorno = mensagem.getText().trim();
     Assertions.assertTrue(mensagemRetorno.contains(mensagemEsperada));
 }
+@Test
+public void LoginEspacoEmBrancoSenha() {
 
+    String mensagemEsperada = "Your password is invalid!";
 
-//LoginEspacoEmBrancoSenha
+    driver.get("https://the-internet.herokuapp.com/login");
+    driver.manage().window().setSize(new Dimension(1520, 840));
+    driver.findElement(By.id("username")).click();
+    driver.findElement(By.id("username")).sendKeys("tomsmith"); 
+    driver.findElement(By.id("password")).click();
+    driver.findElement(By.id("password")).sendKeys(" SuperSecretPassword!"); // senha com espaço em branco 
+    driver.findElement(By.cssSelector("i.fa.fa-2x.fa-sign-in")).click();
 
-
-
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    WebElement mensagem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("flash")));
+    String mensagemRetorno = mensagem.getText().trim();
+    Assertions.assertTrue(mensagemRetorno.contains(mensagemEsperada));
+}
 }
