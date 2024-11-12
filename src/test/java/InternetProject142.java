@@ -104,7 +104,7 @@ public void LoginUsuarioESenhaIncorretos() {
     Assertions.assertTrue(mensagemRetorno.contains(mensagemEsperada));
 }
 @Test
-public void LoginUsuarioEmBranco() {
+public void LoginUsuarioEmBrancoSenhaCorreta() {
 
     String mensagemEsperada = "Your username is invalid!";
 
@@ -122,7 +122,7 @@ public void LoginUsuarioEmBranco() {
     Assertions.assertTrue(mensagemRetorno.contains(mensagemEsperada));
 }
 @Test
-public void LoginSenhaEmBranco() {
+public void LoginUsuarioCorretoSenhaEmBranco() {
 
     String mensagemEsperada = "Your password is invalid!";
 
@@ -158,17 +158,17 @@ public void LoginUsuarioESenhaEmBranco() {
     Assertions.assertTrue(mensagemRetorno.contains(mensagemEsperada));
 }
 @Test
-public void LoginEspacoEmBrancoUsuario() {
+public void LoginUsuarioIncorretoSenhaEmBranco() {
 
     String mensagemEsperada = "Your username is invalid!";
 
     driver.get("https://the-internet.herokuapp.com/login");
     driver.manage().window().setSize(new Dimension(1520, 840));
     driver.findElement(By.id("username")).click();
-    driver.findElement(By.id("username")).sendKeys(" tomsmith"); // usuario com espaço em branco
+    driver.findElement(By.id("username")).sendKeys("Tommsmith"); // usuario incorreto
     driver.findElement(By.id("password")).click();
-    driver.findElement(By.id("password")).sendKeys("SuperSecretPassword!");  
-    driver.findElement(By.cssSelector("i.fa.fa-2x.fa-sign-in")).click();
+    driver.findElement(By.id("password")).sendKeys("");  
+    driver.findElement(By.cssSelector("i.fa.fa-2x.fa-sign-in")).click(); 
 
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     WebElement mensagem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("flash")));
@@ -176,16 +176,16 @@ public void LoginEspacoEmBrancoUsuario() {
     Assertions.assertTrue(mensagemRetorno.contains(mensagemEsperada));
 }
 @Test
-public void LoginEspacoEmBrancoSenha() {
+public void LoginUsuarioEmBrancoSenhaIncorreta() {
 
-    String mensagemEsperada = "Your password is invalid!";
+    String mensagemEsperada = "Your username is invalid!";
 
     driver.get("https://the-internet.herokuapp.com/login");
     driver.manage().window().setSize(new Dimension(1520, 840));
     driver.findElement(By.id("username")).click();
-    driver.findElement(By.id("username")).sendKeys("tomsmith"); 
+    driver.findElement(By.id("username")).sendKeys(""); // usuario em branco
     driver.findElement(By.id("password")).click();
-    driver.findElement(By.id("password")).sendKeys(" SuperSecretPassword!"); // senha com espaço em branco 
+    driver.findElement(By.id("password")).sendKeys(" secretpassword"); // senha incorreta 
     driver.findElement(By.cssSelector("i.fa.fa-2x.fa-sign-in")).click();
 
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
